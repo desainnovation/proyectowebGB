@@ -27,7 +27,7 @@ public class AutoresController extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
-	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		if (request.getParameter("op") == null) {
 			listar(request, response);
@@ -41,27 +41,45 @@ public class AutoresController extends HttpServlet {
 			break;
 
 		case "nuevo":
-			// nuevo()
+			request.getRequestDispatcher("/autores/nuevoAutor.jsp").forward(request, response);
+			break;
+		case "insertar":
+			insertar(request, response);
 			break;
 
 		}
 	}
 
-	private void listar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+	private void listar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
 		request.setAttribute("listaAutores", modelo.listarAutores());
 		/*
 		Iterator<Autor> it = modelo.listarAutores().iterator();
-		
-		while(it.hasNext())
-		{
+		while(it.hasNext()) {
 			Autor a = it.next();
-			System.out.println(a.getIdAutor()+" - "+ a.getNombre()+" "+a.getNacionalidad());
-		}	*/	
-		
+			System.out.println(a.getIdAutor()+" "
+			+a.getNacionalidad()+" "
+			+a.getNombre());
+		}*/
 		
 		request.getRequestDispatcher("/autores/listaAutores.jsp").forward(request, response);
 	}
 
+	private void insertar(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+		
+		try{
+			
+			Autor miAutor =  new Autor();
+			miAutor.setNombre(request.getParameter("nombre"));
+			miAutor.setNacionalidad(request.getParameter("nacionalidad"));
+			
+			
+			
+		}catch (Exception ex) {
+			// 
+			ex.getStackTrace();
+		}
+		
+	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -69,12 +87,7 @@ public class AutoresController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		try {
-			processRequest(request, response);
-		} catch (ServletException | IOException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		processRequest(request, response);
 	}
 
 	/**
@@ -84,12 +97,7 @@ public class AutoresController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		try {
-			processRequest(request, response);
-		} catch (ServletException | IOException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		processRequest(request, response);
 	}
 
 }

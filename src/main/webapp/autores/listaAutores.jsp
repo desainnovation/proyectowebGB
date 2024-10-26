@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
-<%@ page import="com.unu.proyectoWebGB.beans.*"%>
+<%@ page import="com.unu.proyectoWebGB.beans.Autor"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,15 +10,16 @@
 </head>
 <body>
 
-	<table>
+	<% String url = "http://localhost:8092/proyectoWebGB/"; %>
+	<a type="button" href="<%=url%>AutoresController?op=nuevo">Nuevo autor</a>
+
+	<table border="1">
 		<thead>
 
-			<tr>
-				<th>Cod. Autor</th>
-				<th>Nombre Autor</th>
-				<th>Nacionalidad</th>
-				<th>Operaciones</th>
-			</tr>
+			<th>Cod Autor</th>
+			<th>Nombre Autor</th>
+			<th>Nacionalidad</th>
+			<th>Operaciones</th>
 
 		</thead>
 
@@ -29,30 +30,28 @@
 			if (listaAutores != null) {
 				for (Autor autor : listaAutores) {
 			%>
-			<tr>
 
+			<tr>
 				<td><%=autor.getIdAutor()%></td>
 				<td><%=autor.getNombre()%></td>
 				<td><%=autor.getNacionalidad()%></td>
-
 			</tr>
+
 
 			<%
 			}
-			} else {
-			%>
+			}
 
+			else {
+			%>
 			<tr>
-
-				<td>no hay datos</td>
-				<td>no hay datos</td>
-				<td>no hay datos</td>
-
+				<td>No hay datos</td>
+				<td>No hay datos</td>
+				<td>No hay datos</td>
 			</tr>
 			<%
 			}
 			%>
-
 		</tbody>
 
 
